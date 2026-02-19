@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "monei-voice-ai"
+version = "1.0.0"
+description = "Voice-mode AI demo — speak, transcribe, respond with voice"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+    "python-dotenv>=1.0.0",
+    "python-multipart>=0.0.9",
+    "pydantic>=2.7.0",
+    "openai-whisper>=20231117",
+    "scipy>=1.11.0",
+    "numpy>=1.24.0",
+    "requests>=2.31.0",
+    "imageio-ffmpeg>=0.4.9",
+    "torch>=2.1.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["speech_to_text*"]
