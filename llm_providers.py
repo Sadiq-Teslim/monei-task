@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 from abc import ABC, abstractmethod
 
 import requests
@@ -125,7 +126,11 @@ class MoneiProvider(LLMProvider):
 
         if not full_text:
             raise RuntimeError("Monei API returned an empty response")
-        return full_text
+        # Monei SSE tokens arrive with extra whitespace; normalise it
+        # while preserving intentional newlines for markdown formatting.
+        lines = full_text.split("\n")
+        lines = [re.sub(r"  +", " ", line).strip() for line in lines]
+        return "\n".join(lines).strip()
 
 
 # ---------------------------------------------------------------------------

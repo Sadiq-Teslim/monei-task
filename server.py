@@ -1,8 +1,16 @@
+import io
+import sys
 import uuid
 import time
 import logging
 from pathlib import Path
 from contextlib import asynccontextmanager
+
+# Force UTF-8 for all console output on Windows (fixes charmap codec errors)
+if sys.stdout.encoding != "utf-8":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+if sys.stderr.encoding != "utf-8":
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 from fastapi import FastAPI, UploadFile, File, Query, HTTPException
 from fastapi.staticfiles import StaticFiles

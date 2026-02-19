@@ -226,7 +226,7 @@ function addMessage(role, text, audioUrl, isObjectUrl) {
             <span class="material-symbols-rounded">${iconName}</span>
         </div>
         <div class="msg-body">
-            <div class="msg-bubble">${escapeHtml(text)}</div>
+            <div class="msg-bubble">${role === "ai" ? formatMarkdown(text) : escapeHtml(text)}</div>
             ${audioHtml}
             <div class="msg-time">${time}</div>
         </div>`;
@@ -431,4 +431,29 @@ function escapeHtml(str) {
     const div = document.createElement("div");
     div.textContent = str;
     return div.innerHTML;
+}
+
+function formatMarkdown(raw) {
+    let text = escapeHtml(raw);
+
+    // Headings: ### heading
+    text = text.replace(/^### (.+)$/gm, '<strong class="md-h3">$1</strong>');
+    text = text.replace(/^## (.+)$/gm, '<strong class="md-h2">$1</strong>');
+
+    // Bold: **text**
+    text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+    // Unordered list items: - item
+    text = text.replace(/^- (.+)$/gm, '<span class="md-li">&bull; $1</span>');
+
+    // Ordered list items: 1. item
+    text = text.replace(/^\d+\.\s+(.+)$/gm, '<span class="md-li">$1</span>');
+
+    // Line breaks
+    text = text.replace(/\n/g, "<br>");
+
+    // Clean up excessive <br> runs
+    text = text.replace(/(<br>){3,}/g, "<br><br>");
+
+    return text;
 }

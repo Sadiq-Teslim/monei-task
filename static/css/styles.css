@@ -421,6 +421,27 @@ body {
   color: var(--text-primary);
 }
 
+/* ─── MARKDOWN IN BUBBLES ─── */
+
+.msg-bubble .md-h2,
+.msg-bubble .md-h3 {
+  display: block;
+  margin: 6px 0 2px;
+  color: var(--accent-light);
+  font-size: 14px;
+}
+
+.msg-bubble .md-h2 {
+  font-size: 15px;
+}
+
+.msg-bubble .md-li {
+  display: block;
+  padding-left: 10px;
+  text-indent: -10px;
+  margin: 2px 0;
+}
+
 .msg-audio {
   display: flex;
   align-items: center;
