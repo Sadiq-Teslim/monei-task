@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: monei-voice-ai
+    runtime: python
+    plan: standard
+    buildCommand: bash build.sh
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: LLM_PROVIDER
+        value: monei
+      - key: MONEI_API_KEY
+        sync: false
+      - key: YARNGPT_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
