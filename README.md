@@ -108,6 +108,26 @@ LLM_PROVIDER=groq
 3. Render reads `render.yaml` and prompts for the secret env vars
 4. Minimum plan: **Standard** (2 GB RAM — required for Whisper + PyTorch)
 
+## Deploy to Railway
+
+1. Push to GitHub
+2. Go to [Railway](https://railway.app) and click **New Project → Deploy from GitHub repo**
+3. Select the `monei-task` repository
+4. Railway auto-detects Python. Under **Settings**, set:
+   - **Build Command:** `bash build.sh`
+   - **Start Command:** `uvicorn server:app --host 0.0.0.0 --port $PORT`
+5. Add environment variables under **Variables**:
+   | Variable | Value |
+   | --- | --- |
+   | `LLM_PROVIDER` | `monei` |
+   | `MONEI_API_KEY` | your Monei key |
+   | `YARNGPT_API_KEY` | your YarnGPT key |
+   | `GROQ_API_KEY` | your Groq key (optional) |
+6. Click **Deploy** — Railway provisions the service and gives you a public URL
+7. Minimum resource: **2 GB RAM** (Whisper + PyTorch requirement)
+
+> **Tip:** Railway charges per usage. You can set a spending limit under **Settings → Usage** to avoid surprises.
+
 ## License
 
 MIT
